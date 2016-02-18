@@ -1,7 +1,6 @@
 package com.christina.aspect;
 
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 
 @Aspect

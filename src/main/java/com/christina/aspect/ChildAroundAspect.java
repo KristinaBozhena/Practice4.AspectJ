@@ -9,14 +9,13 @@ public class ChildAroundAspect {
 
 	@Around("execution(* com.christina.aspect.Child.getName())")
 	public Object childAroundAdvice(ProceedingJoinPoint proceedingJoinPoint){
-		System.out.println("Before invoking getName() method");
 		Object value = null;
 		try {
 			value = proceedingJoinPoint.proceed();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		System.out.println("After invoking getName() method. Return value = "+value);
+		System.out.println("Return value = "+value);
 		return value;
 	}
 }
