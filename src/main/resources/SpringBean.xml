@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<!-- Enable AspectJ style of Spring AOP -->
+	<aop:aspectj-autoproxy />
+
+	<!-- Configure Employee Bean and initialize it -->
+	<bean name="child" class="com.christina.aspect.Child">
+		<property name="name" value="Mark Levi"></property>
+	</bean>
+
+	<!-- Configure EmployeeService bean -->
+	<bean name="childService" class="com.christina.service.ChildService">
+		<property name="child" ref="child"></property>
+	</bean>
+
+	<!-- Configure Aspect Beans, without this Aspects advices wont execute -->
+	<bean name="childAspect" class="com.christina.aspect.ChildAspect" />
+	<bean name="childAspectPointcut" class="com.christina.aspect.ChildAspectPointcut" />
+	<bean name="childAspectJoinPoint" class="com.christina.aspect.ChildAspectJoinPoint" />
+	<bean name="childAfterAspect" class="com.christina.aspect.ChildAfterAspect" />
+	<bean name="childAroundAspect" class="com.christina.aspect.ChildAroundAspect" />
+	<bean name="childAnnotationAspect" class="com.christina.aspect.ChildAnnotationAspect" />
+	<bean name="childXMLConfigAspect" class="com.christina.aspect.ChildXMLConfigAspect" />
+
+	<!-- Spring AOP XML Configuration -->
+	<aop:config>
+		<aop:aspect ref="childXMLConfigAspect" id="childXMLConfigAspectID"
+			order="1">
+			<aop:pointcut
+				expression="execution(* com.christina.aspect.Child.getName())"
+				id="getNamePointcut" />
+			<aop:around method="childAroundAdvice" pointcut-ref="getNamePointcut"
+				arg-names="proceedingJoinPoint" />
+		</aop:aspect>
+	</aop:config>
+</beans>
